@@ -7,15 +7,15 @@ movieCall.getMovie = function (apiKeys, searchValue) {
 				let keyHolder = apiKeys.omdbApi;
 				console.log("keyHolder",keyHolder );
 			$.ajax({
-				method:"GET",
-				url:`http://img.omdbapi.com/?i=tt2294629&apikey=109d54fa`
+				method:"GET", 
+				url:`http://www.omdbapi.com/?t=${searchValue}&y=&plot=short&r=json`
 			}).then((response)=>{
 				console.log("getMovie response",response );
-				let users = [];
-				Object.keys(response).forEach(function(key){ // exact code to use every firebase project
-					response[key].id = key; //
-					users.push(response[key]); //
-				});
+				// let users = [];
+				// Object.keys(response).forEach(function(key){ // exact code to use every firebase project
+				// 	response[key].id = key; //
+				// 	users.push(response[key]); //
+				// });
 				resolve(response);
 			},(error)=>{
 				reject(error);
