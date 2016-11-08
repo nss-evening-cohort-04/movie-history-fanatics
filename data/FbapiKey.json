@@ -1,0 +1,7 @@
+{  
+    "apiKey": "AIzaSyDCuh7NmmIhLkKW6VNymHBx7_xK5hj-IK8",
+    "authDomain": "movie-history-fanatics.firebaseapp.com",
+    "databaseURL": "https://movie-history-fanatics.firebaseio.com",
+    "storageBucket": "movie-history-fanatics.appspot.com",
+    "messagingSenderId": "863204213810"
+}
