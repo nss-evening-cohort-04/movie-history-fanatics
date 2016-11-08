@@ -6,7 +6,118 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <h1>Movie History</h1>
+
+  <div class="container col-xs-4 col-xs-offset-4" id="login-container">
+    <h1 class="centerThis">MOVIE LOVER</h1>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input type="text" id="inputUsername" class="form-control" placeholder="Username" required>
+    <button class="btn btn-lg btn-success col-xs-6" id="loginButton">Login</button>
+    <button class="btn btn-lg btn-primary col-xs-6" id="registerButton">Register</button>
+  </div>
+
+  <div id="logout-container"></div>
+
+  <div class="container" id="movie-search-view">
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search movies..." id="movie-name">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" id="movie-search-button">Go!</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="row" id="movie-search-results">
+      <div class="col-md-2">Movie Info Search Results Here</div>
+      <div class="col-md-2">Movie Info Search Results Here</div>
+      <div class="col-md-2">Movie Info Search Results Here</div>
+      <div class="col-md-2">Movie Info Search Results Here</div>
+      <div class="col-md-2">Movie Info Search Results Here</div>
+      <div class="col-md-2">Movie Info Search Results Here</div>
+    </div>
+  </div>
+  <div class="container">
+    <h1>My Movies</h1>
+    <div class="row" id="user-movie-view">
+      <div class="col-md-8">
+        <h2>Need To Watch</h2>
+        <ul id="movies-to-watch">
+          <li data-completed="${movie.toWatch}">
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox">
+              <label class="inputLabel">Movie To Watch</label>
+              <div>
+                STAR STAR STAR
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button>
+            </div>
+         </li>
+         <li data-completed="${movie.toWatch}">
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox">
+              <label class="inputLabel">Movie To Watch</label>
+              <div>
+                STAR STAR STAR
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button>
+            </div>
+         </li>
+         <li data-completed="${movie.toWatch}">
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox">
+              <label class="inputLabel">Movie To Watch</label>
+              <div id="movie-rating">
+                STAR STAR STAR
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button>
+            </div>
+         </li>
+        </ul>
+      </div>
+      <div class="col-md-4" id="movies-already-viewed">
+        <h2>Need To Watch</h2>
+        <ul>
+          <li data-completed="${item.isCompleted}" >
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox" checked>
+              <label class="inputLabel">Movie I watched</label>
+              <div id="movie-rating">
+                STAR STAR STAR
+              </div>
+            </div>
+          </li>
+          <li data-completed="${item.isCompleted}" >
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox" checked>
+              <label class="inputLabel">Movie I watched</label>
+              <div id="movie-rating">
+                STAR STAR STAR
+              </div>
+            </div>
+          </li>
+          <li data-completed="${item.isCompleted}" >
+            <div class="col-xs-8" data-fbid="${item.id}">
+              <input class="checkboxStyle" type="checkbox" checked>
+              <label class="inputLabel">Movie I watched</label>
+              <div id="movie-rating">
+                STAR STAR STAR
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <script src="/lib/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8" async defer></script>
   <script src="/lib/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8" async defer></script>
