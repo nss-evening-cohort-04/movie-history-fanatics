@@ -1,0 +1,21 @@
+{
+  "name": "mjquiz",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Debra Gordon <debra.m.gordon@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nss-evening-cohort-04/modernjs-quiz-debragordon",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "boostrap#^3.3.7"
+  }
+}
