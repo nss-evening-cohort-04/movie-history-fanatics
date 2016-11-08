@@ -1,0 +1,40 @@
+{
+"movies":{
+	"movie0":{
+		"name":"mow the lawn",
+		"year":"1997",
+		"watched": true,
+		"rating": "1",
+		"actors":["Matt Damon"],
+		"uid":"0"
+
+	},
+	"movie1":{
+		"name":"eat chips",
+		"year": "1988",
+		"watched": false,
+		"rating": "1",
+		"actors":["Robert Deniro"],
+		"uid":"1"
+	},
+	"movie2":{
+		"name":"take a nap",
+		"year":"1980",
+		"watched": false,
+		"rating": "1",
+		"actors":["Jack Nicholson"],
+		"uid":"0"
+	}
+},
+	"users":{
+		"user1":{
+			"username": "a",
+			"uid": "0"
+		},
+		"user2":{
+			"username": "b",
+			"uid": "1"
+
+		}
+	}
+}
