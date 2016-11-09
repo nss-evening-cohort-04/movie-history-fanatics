@@ -15,26 +15,27 @@ function showMyMovies(){
       if(!movie.Watched){
         let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
           newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-          newMovieItem += '<div class="card-block">';
-          newMovieItem +=`<h4 class="card-title">${movie.Title}</h4>`;
-          newMovieItem +=`<p class="card-text">${movie.Plot}</p>`;
-          newMovieItem +='<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
-          newMovieItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
-        newMovieItem +='</div>';
-        newMovieItem +='</div>';
+          newMovieItem += '<section class="card-block">';
+          newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
+          newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
+          newMovieItem += '<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
+          newMovieItem += '<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+        newMovieItem += '</section>';
+        newMovieItem += '</div>';
 
     //apend to list
     $('#movies-to-watch').append(newMovieItem);
     }else{
       let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
         newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-        newMovieItem += '<div class="card-block">';
-        newMovieItem +=`<h4 class="card-title">${movie.Title}</h4>`;
-        newMovieItem +=`<p class="card-text">${movie.Plot}</p>`;
-        newMovieItem +='<button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
-        newMovieItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
-        newMovieItem +='</div>';
-        newMovieItem +='</div>';
+        newMovieItem += '<section class="card-block">';
+        newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
+        newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
+        newMovieItem += '<div class="form-group"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>';
+        newMovieItem += '<button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
+        newMovieItem += '<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+        newMovieItem += '</section>';
+        newMovieItem += '</div>';
       //apend to list
       $('#movies-already-viewed').append(newMovieItem);
       }
@@ -174,11 +175,12 @@ $(document).ready(function(){
     });
   });
 
-/////////////// NOT WORKING YET ///////////
+/////////////// things below here are NOT WORKING YET ///////////
+
 // deletes movie member from the DB and rewrites the new db to the DOM
-  $('.delete').on("click", function(){
-    $(this).closest("#single-movie").remove();
-    console.log("click event works");
+  $('#single-movie').on('click', '.delete', function() {
+    let movieToDelete = $(this).closest("div");
+    console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
     FbAPI.deleteMovie(apiKeys, itemId).then(function(){
       console.log("show the DB of movies in a div");
@@ -187,8 +189,55 @@ $(document).ready(function(){
 
 // edits movie's watched status in the DB and rewrites the new db to the DOM
 //// click event on the watched button moves card from left list to right list
+  $('#single-movie').on('click', '.watched', function() {
+    let movieWatched = $(this).closest("div");
+    console.log("movieWatched", movieWatched);
+    let editedMovie = {
+      "Poster": `${searchResult.Poster}`,
+      "Title": `${searchResult.Title}`,
+      "Genre": `${searchResult.Genre}`,
+      "Rated": `${searchResult.Rated}`,
+      "Released": `${searchResult.Released}`,
+      "Plot": `${searchResult.Plot}`,
+      "imdbRating": `${searchResult.imdbRating}`,
+      "Watched": true,
+      "userRating": null,
+      "Actors": `${searchResult.Actors}`,
+      "Awards": `${searchResult.Awards}`,
+      "uid": uid
+    };
+    let itemId = $(this).data("fbid");
+    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
+      showMyMovies();
+    });
+  });
 
 // edits movie's user rating status in the DB and rewrites the new db to the DOM
 //// click event on the rating button moves card from left list to right list
+  $('#single-movie').on('click', '.watched', function() {
+    let movieWatched = $(this).closest("div");
+    console.log("movieWatched", movieWatched);
+    let userStarRating = $('#star-rating').val();
+    let editedMovie = {
+      "Poster": `${searchResult.Poster}`,
+      "Title": `${searchResult.Title}`,
+      "Genre": `${searchResult.Genre}`,
+      "Rated": `${searchResult.Rated}`,
+      "Released": `${searchResult.Released}`,
+      "Plot": `${searchResult.Plot}`,
+      "imdbRating": `${searchResult.imdbRating}`,
+      "Watched": true,
+      "userRating": userStarRating,
+      "Actors": `${searchResult.Actors}`,
+      "Awards": `${searchResult.Awards}`,
+      "uid": uid
+    };
+    let itemId = $(this).data("fbid");
+    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
+      showMyMovies();
+    });
+    //hide the rating field and the rate button
+    //show a certain number of stars to match their rating
+  });
 
 });
