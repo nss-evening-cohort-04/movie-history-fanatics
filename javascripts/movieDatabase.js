@@ -3,7 +3,7 @@ var movieAPI = (function (movieCall) {
 
 movieCall.getMovie = function (apiKeys, searchValue) {
 		return new Promise((resolve, reject) =>{
-				// console.log("apiKeys",apiKeys );
+				console.log("apiKeys",apiKeys );
 				let keyHolder = apiKeys.omdbApi;
 				console.log("keyHolder",keyHolder );
 			$.ajax({
