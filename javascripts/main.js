@@ -2,22 +2,23 @@
 let apiKeys = {};
 let FbAPIKeys = {};
 let uid = "";
+let searchResult = {};
 
 console.log("jqeury connected");
 
 function showMyMovies(){
-  FbAPI.getTodos(FbAPIKeys, uid).then(function(movies){
+  FbAPI.oldMovies(FbAPIKeys, uid).then(function(movies){
     console.log("movies from FB", movies);
     $('#movies-to-watch').html('');
     $('#movies-already-viewed').html('');
     movies.forEach(function(movie){
-      if(movie.watched === true){
-        let newListItem ='<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">';
-          newListItem+= '<img class="card-img-top" src="http://placehold.it/200x100" alt="Card image cap">';
+      if(!movie.Watched){
+        let newListItem =`<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
+          newListItem+= `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
           newListItem+= '<div class="card-block">';
           // newListItem+= `<li data-completed="${movie.watched}">`;
-          newListItem+=`<h4 class="card-title">${movie.name}</h4>`;
-          newListItem+='<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>';
+          newListItem+=`<h4 class="card-title">${movie.Title}</h4>`;
+          newListItem+=`<p class="card-text">${movie.Plot}</p>`;
           // newListItem+='Watched<input class="checkboxStyle" type="checkbox" checked>';
           // newListItem+='<ul class="list-group list-group-flush">';
           // newListItem+= '<li class="list-group-item">actor</li>';
@@ -35,11 +36,11 @@ function showMyMovies(){
     //apend to list
     $('#movies-to-watch').append(newListItem);
   }else{
-    let newListItem ='<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">';
-      newListItem+= '<img class="card-img-top" src="http://placehold.it/200x100" alt="Card image cap">';
+    let newListItem =`<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
+      newListItem+= `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
         newListItem+= '<div class="card-block">';
-          newListItem+=`<h4 class="card-title">${movie.name}</h4>`;
-          newListItem+='<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>';
+          newListItem+=`<h4 class="card-title">${movie.Title}</h4>`;
+          newListItem+=`<p class="card-text">${movie.Plot}</p>`;
           newListItem+='<button type="button" href="#" class="btn btn-success">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
         newListItem+='</div>';
   newListItem+='</div>';
@@ -81,8 +82,10 @@ function putMovieInDOM (searchValue){
       newListItem += `<div><h4>Plot: ${items.Plot}</h4></div>`;
       newListItem += `<div><h4>Top Actors: ${items.Actors}</h4></div>`;
       newListItem += `<div><h4>Awards: ${items.Awards}</h4></div>`;
+      newListItem += '<button class="btn btn-lg btn-secondary" id="add-to-watch-list">Add To Watch List</button>';
     $('#movie-search-results').append(newListItem);
     $("#movie-name").val("");
+    searchResult = items;
    });
  }
 
@@ -177,27 +180,28 @@ $(document).ready(function(){
   });
 
   // adds movie to watch database and displays to DOM
-  $('#add-to-watch-list').on('click', function(){
+  $('#movie-search-results').on('click','#add-to-watch-list',function(){
     console.log("clicked the add movie button");
+    console.log(searchResult);
     // let interestArray = $('#interests-text-area').val().split(',');
     // console.log("interest array", interestArray);
     let newMovie = {
-      "Poster": "${items.Poster}",
-      "Title": "${items.Title}",
-      "Genre": "${items.Genre}",
-      "Rated": "${items.Rated}",
-      "Released": "${items.Released}",
-      "Plot": "${items.Plot}",
-      "imdbRating": "${items.imdbRating}",
+      "Poster": `${searchResult.Poster}`,
+      "Title": `${searchResult.Title}`,
+      "Genre": `${searchResult.Genre}`,
+      "Rated": `${searchResult.Rated}`,
+      "Released": `${searchResult.Released}`,
+      "Plot": `${searchResult.Plot}`,
+      "imdbRating": `${searchResult.imdbRating}`,
       "Watched": false,
       "userRating": null,
-      "Actors": "${items.Actors}",
-      "Awards": "${items.Awards}",
+      "Actors": `${searchResult.Actors}`,
+      "Awards": `${searchResult.Awards}`,
       "uid": uid
     };
-    console.log("newMove Object", newMovie);
-    FbAPI.addMovieToWatch(apiKeys, newMovie).then(function(){
-      console.log("show the DB of movies in a div");
+    console.log("newMovie Object", newMovie);
+    FbAPI.addMovieToWatch(FbAPIKeys, newMovie).then(function(){
+      showMyMovies();
     });
   });
 
