@@ -31,8 +31,7 @@ function showMyMovies(){
         newMovieItem += '<section class="card-block">';
         newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
         newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
-        newMovieItem += '<div class="form-group"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>';
-        newMovieItem += '<button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
+        newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
         newMovieItem += '<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
         newMovieItem += '</section>';
         newMovieItem += '</div>';
@@ -178,7 +177,7 @@ $(document).ready(function(){
 /////////////// things below here are NOT WORKING YET ///////////
 
 // deletes movie member from the DB and rewrites the new db to the DOM
-  $('#single-movie').on('click', '.delete', function() {
+  $(document).on('click', '.delete', function() {
     let movieToDelete = $(this).closest("div");
     console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
@@ -189,7 +188,7 @@ $(document).ready(function(){
 
 // edits movie's watched status in the DB and rewrites the new db to the DOM
 //// click event on the watched button moves card from left list to right list
-  $('#single-movie').on('click', '.watched', function() {
+  $(document).on('click', '.watched', function() {
     let movieWatched = $(this).closest("div");
     console.log("movieWatched", movieWatched);
     let editedMovie = {
@@ -214,7 +213,7 @@ $(document).ready(function(){
 
 // edits movie's user rating status in the DB and rewrites the new db to the DOM
 //// click event on the rating button moves card from left list to right list
-  $('#single-movie').on('click', '.watched', function() {
+  $(document).on('click', '.rate', function() {
     let movieWatched = $(this).closest("div");
     console.log("movieWatched", movieWatched);
     let userStarRating = $('#star-rating').val();
@@ -237,6 +236,7 @@ $(document).ready(function(){
       showMyMovies();
     });
     //hide the rating field and the rate button
+
     //show a certain number of stars to match their rating
   });
 
