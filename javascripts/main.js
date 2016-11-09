@@ -182,7 +182,7 @@ $(document).ready(function(){
     console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
     FbAPI.deleteMovie(apiKeys, itemId).then(function(){
-      console.log("show the DB of movies in a div");
+      showMyMovies();
     });
   });
 
