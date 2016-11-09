@@ -86,7 +86,6 @@ function putMovieInDOM (searchValue){
    });
  }
 
-
 function createLogoutButton(){
   FbAPI.getUser(FbAPIKeys,uid).then(function(userResponse){
     $('#logout-container').html('');
@@ -175,5 +174,38 @@ $(document).ready(function(){
   $('#movie-search-button').on('click',function(){
     console.log('movie-search-button clicked!');
     putMovieInDOM($('#movie-name').val());
+  });
+
+  // adds movie to watch database and displays to DOM
+  $('#add-to-watch-list').on('click', function(){
+    console.log("clicked the add movie button");
+    // let interestArray = $('#interests-text-area').val().split(',');
+    // console.log("interest array", interestArray);
+    let newMovie = {
+      "Poster": "${items.Poster}",
+      "Title": "${items.Title}",
+      "Genre": "${items.Genre}",
+      "Rated": "${items.Rated}",
+      "Released": "${items.Released}",
+      "Plot": "${items.Plot}",
+      "imdbRating": "${items.imdbRating}",
+      "Watched": false,
+      "userRating": null,
+      "Actors": "${items.Actors}",
+      "Awards": "${items.Awards}",
+      "uid": uid
+    };
+    console.log("newMove Object", newMovie);
+    FbAPI.addMovieToWatch(apiKeys, newMovie).then(function(){
+      console.log("show the DB of movies in a div");
+    });
+  });
+
+// deletes movie member from the DB and rewrites the new db to the DOM
+  $('#movies-to-watch').on("click", ".delete", function(){
+    let itemId = $(this).data("fbid");
+    FbAPI.deleteFamilyMember(apiKeys, itemId).then(function(){
+      console.log("show the DB of movies in a div");
+    });
   });
 });
