@@ -3,11 +3,12 @@
 <head>
   <title>Movie History</title>
   <link rel="stylesheet" href="/lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
-  <div class="container col-xs-4 col-xs-offset-4" id="login-container">
+  <div class="container-fluid col-xs-4 col-xs-offset-4" id="login-container">
     <h1 class="centerThis">MOVIE LOVER</h1>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
@@ -18,7 +19,7 @@
 
   <div id="logout-container"></div>
 
-  <div class="container" id="movie-search-view">
+  <div class="container-fluid hide" id="movie-search-view">
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
@@ -32,7 +33,7 @@
       <div class="col-sm-4"></div>
     </div>
         <div class="row" id="movie-search-results">
-      <div class="col-md-2">Movie Info Search Results Here
+      <!-- <div class="col-md-2">Movie Info Search Results Here
         <button class="btn btn-lg btn-secondary" id="registerButton">Add To Watch List</button>
       </div>
       <div class="col-md-2">Movie Info Search Results Here
@@ -50,15 +51,15 @@
       <div class="col-md-2">Movie Info Search Results Here
         <button class="btn btn-lg btn-secondary" id="registerButton">Add To Watch List</button>
       </div>
-    </div>
+ -->    </div>
   </div>
-  <div class="container">
-    <h1>My Movies</h1>
-    <div class="row" id="user-movie-view">
+  <div class="container-fluid hide" id="user-movie-view">
+    <h1 class="text-center">My Movies</h1>
+    <div class="row" >
       <div class="col-md-8">
         <h2>Need To Watch</h2>
         <ul id="movies-to-watch">
-          <li data-completed="${movie.toWatch}">
+          <!-- <li data-completed="${movie.toWatch}">
             <div class="col-xs-8" data-fbid="${item.id}">
               <input class="checkboxStyle" type="checkbox">
               <label class="inputLabel">Movie To Watch</label>
@@ -93,13 +94,13 @@
             <div class="col-xs-4">
               <button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button>
             </div>
-         </li>
+         </li> -->
         </ul>
       </div>
+      <h2>Already Watched</h2>
       <div class="col-md-4" id="movies-already-viewed">
-        <h2>Need To Watch</h2>
         <ul>
-          <li data-completed="${item.isCompleted}" >
+          <!-- <li data-completed="${item.isCompleted}" >
             <div class="col-xs-8" data-fbid="${item.id}">
               <input class="checkboxStyle" type="checkbox" checked>
               <label class="inputLabel">Movie I watched</label>
@@ -125,7 +126,7 @@
                 STAR STAR STAR
               </div>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

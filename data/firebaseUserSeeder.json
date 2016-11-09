@@ -6,7 +6,7 @@
 		"watched": true,
 		"rating": "1",
 		"actors":["Matt Damon"],
-		"uid":"0"
+		"uid":"e0E4g7r1VZcpNY8e6lmMzBhtmgE2"
 
 	},
 	"movie1":{
@@ -15,7 +15,7 @@
 		"watched": false,
 		"rating": "1",
 		"actors":["Robert Deniro"],
-		"uid":"1"
+		"uid":"tjUwwpihhVXQQ5v8xrmiZCajEF63"
 	},
 	"movie2":{
 		"name":"take a nap",
@@ -23,7 +23,7 @@
 		"watched": false,
 		"rating": "1",
 		"actors":["Jack Nicholson"],
-		"uid":"0"
+		"uid":"e0E4g7r1VZcpNY8e6lmMzBhtmgE2"
 	}
 },
 	"users":{
