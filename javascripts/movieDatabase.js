@@ -7,7 +7,7 @@ movieCall.getMovie = function (apiKeys, searchValue) {
 				let keyHolder = apiKeys.omdbApi;
 				console.log("keyHolder",keyHolder );
 			$.ajax({
-				method:"GET", 
+				method:"GET",
 				url:`http://www.omdbapi.com/?t=${searchValue}&y=&plot=short&r=json`
 			}).then((response)=>{
 				console.log("getMovie response",response );
@@ -20,9 +20,8 @@ movieCall.getMovie = function (apiKeys, searchValue) {
 			},(error)=>{
 				reject(error);
 			});
-
 		});
-		
 	};
+
 	return movieCall;
 })(movieAPI || {});
