@@ -13,61 +13,33 @@ function showMyMovies(){
     $('#movies-already-viewed').html('');
     movies.forEach(function(movie){
       if(!movie.Watched){
-        let newListItem =`<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
-          newListItem+= `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-          newListItem+= '<div class="card-block">';
-          // newListItem+= `<li data-completed="${movie.watched}">`;
-          newListItem+=`<h4 class="card-title">${movie.Title}</h4>`;
-          newListItem+=`<p class="card-text">${movie.Plot}</p>`;
-          // newListItem+='Watched<input class="checkboxStyle" type="checkbox" checked>';
-          // newListItem+='<ul class="list-group list-group-flush">';
-          // newListItem+= '<li class="list-group-item">actor</li>';
-          // newListItem+= '<li class="list-group-item">actor</li>';
-          // newListItem+= '<li class="list-group-item">actor</li>';
-          // newListItem+= '</ul>';
-          // newListItem+= '<div class="card-block">';
-          // newListItem+= '<a href="#" class="card-link">Card link</a>';
-          // newListItem+= '<a href="#" class="card-link">Another link</a>';
-          // newListItem+= '</div>';
-          newListItem+='<button type="button" href="#" class="btn btn-primary">Watched</button>';
-          // newListItem+='</li>';
-        newListItem+='</div>';
-        newListItem+='</div>';
+        let newListItem =`<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
+          newListItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
+          newListItem += '<div class="card-block">';
+          newListItem +=`<h4 class="card-title">${movie.Title}</h4>`;
+          newListItem +=`<p class="card-text">${movie.Plot}</p>`;
+          newListItem +='<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
+          newListItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+        newListItem +='</div>';
+        newListItem +='</div>';
     //apend to list
     $('#movies-to-watch').append(newListItem);
   }else{
     let newListItem =`<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
-      newListItem+= `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-        newListItem+= '<div class="card-block">';
-          newListItem+=`<h4 class="card-title">${movie.Title}</h4>`;
-          newListItem+=`<p class="card-text">${movie.Plot}</p>`;
-          newListItem+='<button type="button" href="#" class="btn btn-success">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
-        newListItem+='</div>';
-  newListItem+='</div>';
+      newListItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
+      newListItem += '<div class="card-block">';
+      newListItem +=`<h4 class="card-title">${movie.Title}</h4>`;
+      newListItem +=`<p class="card-text">${movie.Plot}</p>`;
+      newListItem +='<button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
+      newListItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+      newListItem +='</div>';
+      newListItem +='</div>';
     //apend to list
     $('#movies-already-viewed').append(newListItem);
     }
   });
 });
 }
-
-// function putMovieInDOM (searchValue){
-// 	movieAPI.getMovie(apiKeys,searchValue).then(function(items){
-//     console.log("items from movie call in ajaxCalls.js", items);
-//     $('#movie-search-results').empty();
-//     let newListItem = "<div class='row'>";
-//     newListItem += `<div class="col-xs-4"><img src=${items.Poster}/></div>`;
-//     newListItem += "<div class='col-xs-8'>";
-//     newListItem += `<div class="col-xs-3"><h4>Title: ${items.Title}</h4></div>`;
-//     newListItem += `<div class="col-xs-3"><h4>Year Released: ${items.Year}</h4></div>`;
-//     newListItem += `<div class="col-xs-3"><h4>Top Actors: ${items.Actors}</h4></div>`;
-//     newListItem += `<div class="col-xs-3"><h4>imdb Rating: ${items.imdbRating}</h4></div>`;
-//     newListItem += "</div>";
-//     newListItem += "</div>";
-//     $('#movie-search-results').html(newListItem);
-//     $('#movie-name').val("");
-//   });
-// }
 
 function putMovieInDOM (searchValue){
   movieAPI.getMovie(apiKeys,searchValue).then(function(items){
@@ -93,7 +65,7 @@ function createLogoutButton(){
   FbAPI.getUser(FbAPIKeys,uid).then(function(userResponse){
     $('#logout-container').html('');
     let currentUsername = userResponse.username;
-    let logoutButton = `<button class="btn btn-danger" id="logoutButton">LOGOUT ${currentUsername}</button>`;
+    let logoutButton = `<button class="btn btn-warning" id="logoutButton">LOGOUT ${currentUsername}</button>`;
     $('#logout-container').append(logoutButton);
   });
 }
@@ -205,6 +177,7 @@ $(document).ready(function(){
     });
   });
 
+/////////////// NOT WORKING YET ///////////
 // deletes movie member from the DB and rewrites the new db to the DOM
   $('#movies-to-watch').on("click", ".delete", function(){
     let itemId = $(this).data("fbid");
@@ -212,4 +185,11 @@ $(document).ready(function(){
       console.log("show the DB of movies in a div");
     });
   });
+
+// edits movie's watched status in the DB and rewrites the new db to the DOM
+//// click event on the watched button moves card from left list to right list
+
+// edits movie's user rating status in the DB and rewrites the new db to the DOM
+//// click event on the rating button moves card from left list to right list
+
 });
