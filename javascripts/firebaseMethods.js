@@ -58,7 +58,7 @@ var FbAPI = (function(oldFirebase){
 				data: JSON.stringify(editedItem),
 				dataType: 'json'
 			}).then((response)=>{
-				console.log("response from post: ",response);
+				console.log("response from put: ",response);
 				resolve(response);
 			}, (error)=>{
 				reject(error);
