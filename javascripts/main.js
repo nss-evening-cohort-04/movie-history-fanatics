@@ -19,7 +19,7 @@ function showMyMovies(){
           newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
           newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
           newMovieItem += '<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
-          newMovieItem += '<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+          newMovieItem += `<button type="button" href="#" class="btn btn-danger delete" data-fbid="${movie.id}">Delete</button>`;
         newMovieItem += '</section>';
         newMovieItem += '</div>';
 
@@ -32,7 +32,7 @@ function showMyMovies(){
         newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
         newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
         newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
-        newMovieItem += '<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
+        newMovieItem += `<button type="button" href="#" class="btn btn-danger delete" data-fbid="${movie.id}">Delete</button>`;
         newMovieItem += '</section>';
         newMovieItem += '</div>';
       //apend to list
@@ -178,10 +178,11 @@ $(document).ready(function(){
 
 // deletes movie member from the DB and rewrites the new db to the DOM
   $(document).on('click', '.delete', function() {
-    let movieToDelete = $(this).closest("div");
+    let movieToDelete = $(this);
     console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
-    FbAPI.deleteMovie(apiKeys, itemId).then(function(){
+    console.log("deleteId", itemId);
+    FbAPI.deleteMovie(FbAPIKeys, itemId).then(function(){
       showMyMovies();
     });
   });
