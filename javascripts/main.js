@@ -13,7 +13,7 @@ function showMyMovies(){
     $('#movies-already-viewed').html('');
     movies.forEach(function(movie){
       if(!movie.Watched){
-        let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
+        let newMovieItem = `<div class="card card-outline-success text-xs-center" data-fbid="${movie.id}" data-completed="${movie.Watched}" id='single-movie'>`;
           newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
           newMovieItem += '<section class="card-block">';
           newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
@@ -26,9 +26,9 @@ function showMyMovies(){
     //apend to list
     $('#movies-to-watch').append(newMovieItem);
     }else{
-      let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
+      let newMovieItem = `<div class="card card-outline-success text-xs-center" data-fbid="${movie.id}" data-completed="${movie.watched}" id='single-movie'>`;
         newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-        newMovieItem += '<section class="card-block">';
+        newMovieItem += '<section class="card-block" >';
         newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
         newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
         newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
@@ -79,7 +79,7 @@ $(document).ready(function(){
 	});
 
   FbAPI.firebaseCredentials().then(function(keys){
-    console.log("FBkeys", keys);
+    console.log("FbAPIKeys", keys);
     FbAPIKeys = keys;
     firebase.initializeApp(FbAPIKeys);
   });
@@ -178,10 +178,11 @@ $(document).ready(function(){
 
 // deletes movie member from the DB and rewrites the new db to the DOM
   $(document).on('click', '.delete', function() {
-    let movieToDelete = $(this).closest("div");
-    console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
-    FbAPI.deleteMovie(apiKeys, itemId).then(function(){
+    let movieToDelete = $(this).closest("div");
+    console.log("fbid-delete", itemId);
+    console.log("movieToDelete", movieToDelete);
+    FbAPI.deleteMovie(FbAPIKeys, itemId).then(function(){
       showMyMovies();
     });
   });
@@ -189,7 +190,9 @@ $(document).ready(function(){
 // edits movie's watched status in the DB and rewrites the new db to the DOM
 //// click event on the watched button moves card from left list to right list
   $(document).on('click', '.watched', function() {
+    let itemId = $(this).data("fbid");
     let movieWatched = $(this).closest("div");
+    console.log("fbid-watched", itemId);
     console.log("movieWatched", movieWatched);
     let editedMovie = {
       "Poster": `${searchResult.Poster}`,
@@ -205,8 +208,7 @@ $(document).ready(function(){
       "Awards": `${searchResult.Awards}`,
       "uid": uid
     };
-    let itemId = $(this).data("fbid");
-    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
+    FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
       showMyMovies();
     });
   });
@@ -232,7 +234,7 @@ $(document).ready(function(){
       "uid": uid
     };
     let itemId = $(this).data("fbid");
-    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
+    FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
       showMyMovies();
     });
     //hide the rating field and the rate button
