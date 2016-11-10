@@ -174,7 +174,6 @@ $(document).ready(function(){
     });
   });
 
-/////////////// things below here are NOT WORKING YET ///////////
 
 // deletes movie member from the DB and rewrites the new db to the DOM
   $(document).on('click', '.delete', function() {
@@ -187,58 +186,61 @@ $(document).ready(function(){
     });
   });
 
-// edits movie's watched status in the DB and rewrites the new db to the DOM
-//// click event on the watched button moves card from left list to right list
-  $(document).on('click', '.watched', function() {
-    let movieWatched = $(this).closest("div");
-    console.log("movieWatched", movieWatched);
-    let editedMovie = {
-      "Poster": `${searchResult.Poster}`,
-      "Title": `${searchResult.Title}`,
-      "Genre": `${searchResult.Genre}`,
-      "Rated": `${searchResult.Rated}`,
-      "Released": `${searchResult.Released}`,
-      "Plot": `${searchResult.Plot}`,
-      "imdbRating": `${searchResult.imdbRating}`,
-      "Watched": true,
-      "userRating": null,
-      "Actors": `${searchResult.Actors}`,
-      "Awards": `${searchResult.Awards}`,
-      "uid": uid
-    };
-    let itemId = $(this).data("fbid");
-    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
-      showMyMovies();
-    });
-  });
+/////////////// things below here are NOT WORKING YET ///////////
 
-// edits movie's user rating status in the DB and rewrites the new db to the DOM
-//// click event on the rating button moves card from left list to right list
-  $(document).on('click', '.rate', function() {
-    let movieWatched = $(this).closest("div");
-    console.log("movieWatched", movieWatched);
-    let userStarRating = $('#star-rating').val();
-    let editedMovie = {
-      "Poster": `${searchResult.Poster}`,
-      "Title": `${searchResult.Title}`,
-      "Genre": `${searchResult.Genre}`,
-      "Rated": `${searchResult.Rated}`,
-      "Released": `${searchResult.Released}`,
-      "Plot": `${searchResult.Plot}`,
-      "imdbRating": `${searchResult.imdbRating}`,
-      "Watched": true,
-      "userRating": userStarRating,
-      "Actors": `${searchResult.Actors}`,
-      "Awards": `${searchResult.Awards}`,
-      "uid": uid
-    };
-    let itemId = $(this).data("fbid");
-    FbAPI.editMovie(apiKeys, itemId, editedMovie).then(function(){
-      showMyMovies();
-    });
-    //hide the rating field and the rate button
+// // edits movie's watched status in the DB and rewrites the new db to the DOM
+// //// click event on the watched button moves card from left list to right list
+//   $(document).on('click', '.watched', function() {
+//     let itemId = $(this).data("fbid");
+//     let movieWatched = $(this).closest("div");
+//     console.log("fbid-watched", itemId);
+//     console.log("movieWatched", movieWatched);
+//     let editedMovie = {
+//       "Poster": `${searchResult.Poster}`,
+//       "Title": `${searchResult.Title}`,
+//       "Genre": `${searchResult.Genre}`,
+//       "Rated": `${searchResult.Rated}`,
+//       "Released": `${searchResult.Released}`,
+//       "Plot": `${searchResult.Plot}`,
+//       "imdbRating": `${searchResult.imdbRating}`,
+//       "Watched": true,
+//       "userRating": null,
+//       "Actors": `${searchResult.Actors}`,
+//       "Awards": `${searchResult.Awards}`,
+//       "uid": uid
+//     };
+//     FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
+//       showMyMovies();
+//     });
+//   });
 
-    //show a certain number of stars to match their rating
-  });
+// // edits movie's user rating status in the DB and rewrites the new db to the DOM
+// //// click event on the rating button moves card from left list to right list
+//   $(document).on('click', '.rate', function() {
+//     let movieWatched = $(this).closest("div");
+//     console.log("movieWatched", movieWatched);
+//     let userStarRating = $('#star-rating').val();
+//     let editedMovie = {
+//       "Poster": `${searchResult.Poster}`,
+//       "Title": `${searchResult.Title}`,
+//       "Genre": `${searchResult.Genre}`,
+//       "Rated": `${searchResult.Rated}`,
+//       "Released": `${searchResult.Released}`,
+//       "Plot": `${searchResult.Plot}`,
+//       "imdbRating": `${searchResult.imdbRating}`,
+//       "Watched": true,
+//       "userRating": userStarRating,
+//       "Actors": `${searchResult.Actors}`,
+//       "Awards": `${searchResult.Awards}`,
+//       "uid": uid
+//     };
+//     let itemId = $(this).data("fbid");
+//     FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
+//       showMyMovies();
+//     });
+//     //hide the rating field and the rate button
+
+//     //show a certain number of stars to match their rating
+//   });
 
 });
