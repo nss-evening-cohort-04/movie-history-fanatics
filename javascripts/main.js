@@ -13,49 +13,50 @@ function showMyMovies(){
     $('#movies-already-viewed').html('');
     movies.forEach(function(movie){
       if(!movie.Watched){
-        let newListItem =`<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
-          newListItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-          newListItem += '<div class="card-block">';
-          newListItem +=`<h4 class="card-title">${movie.Title}</h4>`;
-          newListItem +=`<p class="card-text">${movie.Plot}</p>`;
-          newListItem +='<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
-          newListItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
-        newListItem +='</div>';
-        newListItem +='</div>';
+        let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
+          newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
+          newMovieItem += '<section class="card-block">';
+          newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
+          newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
+          newMovieItem += '<button type="button" href="#" class="btn btn-primary watched">Watched</button>';
+          newMovieItem += `<button type="button" href="#" class="btn btn-danger delete" data-fbid="${movie.id}">Delete</button>`;
+        newMovieItem += '</section>';
+        newMovieItem += '</div>';
+
     //apend to list
-    $('#movies-to-watch').append(newListItem);
-  }else{
-    let newListItem =`<div  class="card card-outline-success text-xs-center" data-completed="${movie.watched}">`;
-      newListItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-      newListItem += '<div class="card-block">';
-      newListItem +=`<h4 class="card-title">${movie.Title}</h4>`;
-      newListItem +=`<p class="card-text">${movie.Plot}</p>`;
-      newListItem +='<button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
-      newListItem +='<button type="button" href="#" class="btn btn-danger delete">Delete</button>';
-      newListItem +='</div>';
-      newListItem +='</div>';
-    //apend to list
-    $('#movies-already-viewed').append(newListItem);
-    }
+    $('#movies-to-watch').append(newMovieItem);
+    }else{
+      let newMovieItem = `<div class="card card-outline-success text-xs-center" data-completed="${movie.watched}" id='single-movie'>`;
+        newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
+        newMovieItem += '<section class="card-block">';
+        newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
+        newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
+        newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" href="#" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
+        newMovieItem += `<button type="button" href="#" class="btn btn-danger delete" data-fbid="${movie.id}">Delete</button>`;
+        newMovieItem += '</section>';
+        newMovieItem += '</div>';
+      //apend to list
+      $('#movies-already-viewed').append(newMovieItem);
+      }
+    });
   });
-});
 }
 
 function putMovieInDOM (searchValue){
   movieAPI.getMovie(apiKeys,searchValue).then(function(items){
     console.log("items from movie call in ajaxCalls.js", items);
     $("#movie-search-results").empty();
-    let newListItem = `<div><img src=${items.Poster}/></div>`;
-      newListItem += `<div><h4>Title: ${items.Title}</h4></div>`;
-      newListItem += `<div><h4>imdb Rating: ${items.imdbRating}</h4></div>`;
-      newListItem += `<div><h4>Genre: ${items.Genre}</h4></div>`;
-      newListItem += `<div><h4>Rating: ${items.Rated}</h4></div>`;
-      newListItem += `<div><h4>Year Released: ${items.Released}</h4></div>`;
-      newListItem += `<div><h4>Plot: ${items.Plot}</h4></div>`;
-      newListItem += `<div><h4>Top Actors: ${items.Actors}</h4></div>`;
-      newListItem += `<div><h4>Awards: ${items.Awards}</h4></div>`;
-      newListItem += '<button class="btn btn-lg btn-secondary" id="add-to-watch-list">Add To Watch List</button>';
-    $('#movie-search-results').append(newListItem);
+    let newMovieItem = `<div><img src=${items.Poster}/></div>`;
+      newMovieItem += `<div><h4>Title: ${items.Title}</h4></div>`;
+      newMovieItem += `<div><h4>imdb Rating: ${items.imdbRating}</h4></div>`;
+      newMovieItem += `<div><h4>Genre: ${items.Genre}</h4></div>`;
+      newMovieItem += `<div><h4>Rating: ${items.Rated}</h4></div>`;
+      newMovieItem += `<div><h4>Year Released: ${items.Released}</h4></div>`;
+      newMovieItem += `<div><h4>Plot: ${items.Plot}</h4></div>`;
+      newMovieItem += `<div><h4>Top Actors: ${items.Actors}</h4></div>`;
+      newMovieItem += `<div><h4>Awards: ${items.Awards}</h4></div>`;
+      newMovieItem += '<button class="btn btn-lg btn-secondary" id="add-to-watch-list">Add To Watch List</button>';
+    $('#movie-search-results').append(newMovieItem);
     $("#movie-name").val("");
     searchResult = items;
    });
@@ -71,21 +72,19 @@ function createLogoutButton(){
 }
 
 $(document).ready(function(){
-	movieAPI.movieCredentials().then(function(keys){
-	    apiKeys = keys;
-	     console.log("apiKeys",apiKeys );
-	     // putMovieInDOM();
-	     // firebase.initializeApp(apiKeys);
+
+  movieAPI.movieCredentials().then(function(keys){
+	   apiKeys = keys;
+	   console.log("apiKeys",apiKeys );
 	});
 
-	FbAPI.firebaseCredentials().then(function(keys){
- 	     console.log("FBkeys", keys);
- 	     FbAPIKeys = keys;
- 	     firebase.initializeApp(FbAPIKeys);
- 	     // showMyMovies();
- 	   });
+  FbAPI.firebaseCredentials().then(function(keys){
+    console.log("FBkeys", keys);
+    FbAPIKeys = keys;
+    firebase.initializeApp(FbAPIKeys);
+  });
 
-	$('#registerButton').on('click',function(){
+  $('#registerButton').on('click',function(){
     let email = $('#inputEmail').val();
     let password = $('#inputPassword').val();
     let username = $('#inputUsername').val();
@@ -135,8 +134,6 @@ $(document).ready(function(){
   $('#logout-container').on('click','#logoutButton',function(){
       FbAPI.logoutUser();
       uid = "";
-      $('#incomplete-tasks').html('');
-      $('#completed-tasks').html('');
       $('#login-container').removeClass('hide');
       $('#movie-search-view').addClass('hide');
       $('#user-movie-view').addClass('hide');
@@ -177,19 +174,73 @@ $(document).ready(function(){
     });
   });
 
-/////////////// NOT WORKING YET ///////////
+
 // deletes movie member from the DB and rewrites the new db to the DOM
-  $('#movies-to-watch').on("click", ".delete", function(){
+  $(document).on('click', '.delete', function() {
+    let movieToDelete = $(this);
+    console.log("movieToDelete", movieToDelete);
     let itemId = $(this).data("fbid");
-    FbAPI.deleteFamilyMember(apiKeys, itemId).then(function(){
-      console.log("show the DB of movies in a div");
+    console.log("deleteId", itemId);
+    FbAPI.deleteMovie(FbAPIKeys, itemId).then(function(){
+      showMyMovies();
     });
   });
 
-// edits movie's watched status in the DB and rewrites the new db to the DOM
-//// click event on the watched button moves card from left list to right list
+/////////////// things below here are NOT WORKING YET ///////////
 
-// edits movie's user rating status in the DB and rewrites the new db to the DOM
-//// click event on the rating button moves card from left list to right list
+// // edits movie's watched status in the DB and rewrites the new db to the DOM
+// //// click event on the watched button moves card from left list to right list
+//   $(document).on('click', '.watched', function() {
+//     let itemId = $(this).data("fbid");
+//     let movieWatched = $(this).closest("div");
+//     console.log("fbid-watched", itemId);
+//     console.log("movieWatched", movieWatched);
+//     let editedMovie = {
+//       "Poster": `${searchResult.Poster}`,
+//       "Title": `${searchResult.Title}`,
+//       "Genre": `${searchResult.Genre}`,
+//       "Rated": `${searchResult.Rated}`,
+//       "Released": `${searchResult.Released}`,
+//       "Plot": `${searchResult.Plot}`,
+//       "imdbRating": `${searchResult.imdbRating}`,
+//       "Watched": true,
+//       "userRating": null,
+//       "Actors": `${searchResult.Actors}`,
+//       "Awards": `${searchResult.Awards}`,
+//       "uid": uid
+//     };
+//     FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
+//       showMyMovies();
+//     });
+//   });
+
+// // edits movie's user rating status in the DB and rewrites the new db to the DOM
+// //// click event on the rating button moves card from left list to right list
+//   $(document).on('click', '.rate', function() {
+//     let movieWatched = $(this).closest("div");
+//     console.log("movieWatched", movieWatched);
+//     let userStarRating = $('#star-rating').val();
+//     let editedMovie = {
+//       "Poster": `${searchResult.Poster}`,
+//       "Title": `${searchResult.Title}`,
+//       "Genre": `${searchResult.Genre}`,
+//       "Rated": `${searchResult.Rated}`,
+//       "Released": `${searchResult.Released}`,
+//       "Plot": `${searchResult.Plot}`,
+//       "imdbRating": `${searchResult.imdbRating}`,
+//       "Watched": true,
+//       "userRating": userStarRating,
+//       "Actors": `${searchResult.Actors}`,
+//       "Awards": `${searchResult.Awards}`,
+//       "uid": uid
+//     };
+//     let itemId = $(this).data("fbid");
+//     FbAPI.editMovie(FbAPIKeys, itemId, editedMovie).then(function(){
+//       showMyMovies();
+//     });
+//     //hide the rating field and the rate button
+
+//     //show a certain number of stars to match their rating
+//   });
 
 });

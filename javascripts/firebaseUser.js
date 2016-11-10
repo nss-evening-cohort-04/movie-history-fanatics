@@ -33,7 +33,8 @@ var FbAPI = (function(oldFirebase){
 			}, (error)=>{
 				reject(error);
 			});
-		});		
+		});
 	};
+
 	return oldFirebase;
 })(FbAPI || {});
