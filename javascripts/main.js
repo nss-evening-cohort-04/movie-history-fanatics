@@ -234,8 +234,6 @@ $(document).ready(function(){
     });
   });
 });
-
-/////////////// things below here are NOT WORKING YET ///////////
 // edits movie's user rating status in the DB and rewrites the new db to the DOM
 //// click event on the rating button moves card from left list to right list
   $(document).on('click', '.rate', function(e) {
