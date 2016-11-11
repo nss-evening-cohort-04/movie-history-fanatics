@@ -8,10 +8,16 @@ $white: white;
 body {
   background: $black;
   color: white;
+  height: 100%;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 .centerThis {
   text-align: center;
+}
+
+image {
+  width: 60%;
 }
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
@@ -29,16 +35,59 @@ body {
 }
 
 a {
-  // Because why not?
   cursor:pointer;
 }
 
+h4, p {
+  display: inline;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+img {
+  border-radius: 10px;
+  margin: 5px;
+}
+
+// button {
+//   display: block;
+// }
+
+//user
+.glyphicon-user {
+  color: #f0ad4e;
+}
+
+#user-container {
+    position:absolute;
+    left:10px;
+    top:10px;
+    // width:50%;
+}
+
+
+//search
+.input-group {
+  margin: 10px;
+}
+
+//logout button
+#logoutButton {
+    position:absolute;
+    right:10px;
+    top:10px;
+    // width:50%;
+}
+
+//card style
 .card {
   border-radius: 25px;
   border: 3px solid #f0ad4e;
   padding: 20px;
   width: auto;
-  margin-top: 10px;
+  margin-top: 20px;
   height: auto;
   display: inline-block;
   padding: 1rem;
@@ -52,4 +101,72 @@ a {
     @include shadow(2);
     transform:translateY(-2px);
   }
+}
+
+//spinner classes
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
+
+
+//star style
+.fa-star {
+  color: #f0ad4e;
+}
+
+//fonts
+h1 {
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+
+h4 {
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 15.4px;
+}
+
+p {
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+blockquote {
+  font-size: 21px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+pre {
+  font-size: 13px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 18.5714px;
 }

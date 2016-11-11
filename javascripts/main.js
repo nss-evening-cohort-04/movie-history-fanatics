@@ -11,14 +11,24 @@ function showMyMovies(){
     movies.forEach(function(movie){
       if(!movie.Watched){
       let newMovieItem = `<div class="card card-outline-success text-xs-center" data-fbid="${movie.id}" data-completed="${movie.Watched}" id='single-movie'>`;
-          newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
-          newMovieItem += '<section class="card-block">';
-          newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
-          newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
-          newMovieItem += '<button type="button" class="btn btn-primary watched">Watched</button>';
-          newMovieItem += '<button type="button" class="btn btn-danger delete">Delete</button>';
-          newMovieItem += '</section>';
+          newMovieItem += "<div class='row'>";
+            newMovieItem += "<div class='col-sm-6'>";
+              newMovieItem += `<img class="card-img-top" src=${movie.Poster} alt="Card image cap">`;
+            // newMovieItem += '<section class="card-block">';
+            newMovieItem += "</div>";
+            newMovieItem += "<div class='col-sm-6'>";
+              newMovieItem += `<h4 class="card-title">${movie.Title}</h4>`;
+              newMovieItem += `<p class="card-text">${movie.Plot}</p>`;
+            newMovieItem += "</div>";
+          newMovieItem += "<div class='row'>";
+            newMovieItem += '<button type="button" class="btn btn-primary watched">Watched</button>';
+            newMovieItem += '<button type="button" class="btn btn-danger delete">Delete</button>';
+          newMovieItem += "</div>";
+
+          // newMovieItem += '</section>';
           newMovieItem += '</div>';
+          newMovieItem += '</div>';
+
         //apend to list
         $('#movies-to-watch').append(newMovieItem);
     }else{
@@ -30,22 +40,22 @@ function showMyMovies(){
         console.log(movie.userRating);
         switch(parseInt(movie.userRating)){
           case 1:
-            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></section>';
+            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star fa-lg" aria-hidden="true"></i></section>';
             break;
           case 2:
-            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></section>';
+            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i></section>';
             break;
           case 3:
-            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></section>';
+            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i></section>';
             break;
           case 4:
-            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></section>';
+            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i></section>';
             break;
           case 5:
-            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></section>';
+            newMovieItem += '<section class="form-group" id="rating-container"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i></section>';
             break;
           default:
-            newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" class="btn btn-success rate">Rate Movie <i class="fa fa-star-o" aria-hidden="true"></i></button>';
+            newMovieItem += '<section class="form-group" id="rating-container"><label for="sel1">RATE YOUR MOVIE</label><select class="form-control" id="star-rating"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></section><button type="button" class="btn btn-success rate">Rate Movie <i class="fa fa-star" aria-hidden="true"></i></button>';
         }
         newMovieItem += '<button type="button" class="btn btn-danger delete">Delete</button>';
         newMovieItem += '</section>';
@@ -61,16 +71,20 @@ function putMovieInDOM (searchValue){
   movieAPI.getMovie(apiKeys,searchValue).then(function(items){
     console.log("items from movie call in ajaxCalls.js", items);
     $("#movie-search-results").empty();
-    let newMovieItem = `<div><img src=${items.Poster}/></div>`;
-      newMovieItem += `<div><h4>Title: ${items.Title}</h4></div>`;
-      newMovieItem += `<div><h4>imdb Rating: ${items.imdbRating}</h4></div>`;
-      newMovieItem += `<div><h4>Genre: ${items.Genre}</h4></div>`;
-      newMovieItem += `<div><h4>Rating: ${items.Rated}</h4></div>`;
-      newMovieItem += `<div><h4>Year Released: ${items.Released}</h4></div>`;
-      newMovieItem += `<div><h4>Plot: ${items.Plot}</h4></div>`;
-      newMovieItem += `<div><h4>Top Actors: ${items.Actors}</h4></div>`;
-      newMovieItem += `<div><h4>Awards: ${items.Awards}</h4></div>`;
+    let newMovieItem = "<div class='card card-outline-success'>";
+      newMovieItem += `<div class="col-sm-4"><img src=${items.Poster}/></div>`;
+      newMovieItem += "<div class='col-sm-8'>";
+      newMovieItem += `<div><h4 class="text-uppercase">Title:  </h4><p>  ${items.Title}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">imdb Rating:  </h4><p>  ${items.imdbRating}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Genre:  </h4><p>  ${items.Genre}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Rating:  </h4><p>  ${items.Rated}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Year Released:  </h4><p>  ${items.Released}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Plot:  </h4><p>  ${items.Plot}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Top Actors:  </h4><p>  ${items.Actors}</p></div>`;
+      newMovieItem += `<div><h4 class="text-uppercase">Awards:  </h4><p>  ${items.Awards}</div>`;
       newMovieItem += '<button class="btn btn-lg btn-secondary" id="add-to-watch-list">Add To Watch List</button>';
+      newMovieItem += "</div>";
+      newMovieItem += "</div>";
     $('#movie-search-results').append(newMovieItem);
     $("#movie-name").val("");
     searchResult = items;
@@ -83,6 +97,8 @@ function createLogoutButton(){
     let currentUsername = userResponse.username;
     let logoutButton = `<button class="btn btn-warning" id="logoutButton">LOGOUT ${currentUsername}</button>`;
     $('#logout-container').append(logoutButton);
+    let userInfo = `<div><span class="glyphicon glyphicon-user" aria-hidden="true"> </span><h4>Hello ${currentUsername}, welcome back!</h4></div>`;
+    $('#user-container').append(userInfo);
   });
 }
 
