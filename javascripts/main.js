@@ -157,8 +157,13 @@ $(document).ready(function(){
   });
 
   $('#movie-search-button').on('click',function(){
+    $('#movie-search-button').button('loading');
     console.log('movie-search-button clicked!');
     putMovieInDOM($('#movie-name').val());
+    // simulating a timeout
+    setTimeout(function () {
+      $('#movie-search-button').button('reset');
+    }, 1000);
   });
 
   // adds movie to watch database and displays to DOM
