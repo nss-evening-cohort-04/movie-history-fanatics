@@ -172,7 +172,7 @@ $(document).ready(function(){
       $('#inputEmail').focus();
   });
 
-  $('#movie-search-button').on('click',function(){
+$('#movie-search-button').on('click',function(){
     console.log('movie-search-button clicked!');
     putMovieInDOM($('#movie-name').val());
   });
@@ -202,6 +202,43 @@ $(document).ready(function(){
       showMyMovies();
     });
   });
+
+
+  // $('#movie-search-button').on('click',function(){
+  //   $('#movie-search-button').button('loading');
+  //   console.log('movie-search-button clicked!');
+  //   putMovieInDOM($('#movie-name').val());
+  //   // simulating a timeout
+  //   setTimeout(function () {
+  //     $('#movie-search-button').button('reset');
+  //   }, 1000);
+  // });
+
+  // // adds movie to watch database and displays to DOM
+  // $('#movie-search-results').on('click','#add-to-watch-list',function(){
+  //   console.log("clicked the add movie button");
+  //   console.log(searchResult);
+  //   // let interestArray = $('#interests-text-area').val().split(',');
+  //   // console.log("interest array", interestArray);
+  //   let newMovie = {
+  //     "Poster": `${searchResult.Poster}`,
+  //     "Title": `${searchResult.Title}`,
+  //     "Genre": `${searchResult.Genre}`,
+  //     "Rated": `${searchResult.Rated}`,
+  //     "Released": `${searchResult.Released}`,
+  //     "Plot": `${searchResult.Plot}`,
+  //     "imdbRating": `${searchResult.imdbRating}`,
+  //     "Watched": false,
+  //     "userRating": null,
+  //     "Actors": `${searchResult.Actors}`,
+  //     "Awards": `${searchResult.Awards}`,
+  //     "uid": uid
+  //   };
+  //   console.log("newMovie Object", newMovie);
+  //   FbAPI.addMovieToWatch(FbAPIKeys, newMovie).then(function(){
+  //     showMyMovies();
+  //   });
+  // });
 
 // deletes movie member from the DB and rewrites the new db to the DOM
   $('div').on('click', '.delete', function() {
