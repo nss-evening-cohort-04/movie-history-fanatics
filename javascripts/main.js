@@ -205,7 +205,7 @@ $(document).ready(function(){
 
 // deletes movie member from the DB and rewrites the new db to the DOM
   $('div').on('click', '.delete', function() {
-    let movieToDelete = $(this).closest("div");
+    let movieToDelete = $(this).closest("div#single-movie");
     let itemId = $(movieToDelete).data("fbid");
     console.log("fbid-delete", itemId);
     console.log("movieToDelete", movieToDelete);
@@ -217,7 +217,7 @@ $(document).ready(function(){
 // edits movie's watched status in the DB and rewrites the new db to the DOM
 //// click event on the watched button moves card from left list to right list
   $(document).on('click', '.watched', function() {
-    let movieWatched = $(this).closest("div");
+    let movieWatched = $(this).closest("div#single-movie");
     let itemId = $(movieWatched).data("fbid");
     console.log("fbid-watched", itemId);
     console.log("movieWatched", movieWatched);
